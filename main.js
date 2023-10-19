@@ -1,46 +1,29 @@
-let users = [
-  {
-    id: 1,
-    name: "Mihai",
-    email: "mihai@gmail.com",
-    password: "Mihai1!",
-  },
-  {
-    id: 2,
-    name: "Raluca",
-    email: "raluca@gmail.com",
-    password: "Raluca6!",
-  },
-];
+import { register } from './Users/Register.js'
+import { login } from './Users/Login.js'
+import { logout } from './Users/Logout.js'
+import { renderTodos } from './ToDos/RenderTodos.js'
+import { addToDo } from './ToDos/Add.js'
 
-let toDos = [
-  {
-    id: 1,
-    taskName: "Do the dishes!",
-    status: "to-do",
-    responsable: "Mihai",
-  },
-  {
-    id: 2,
-    taskName: "Do the laundry!",
-    status: "to-do",
-    responsable: "Mihai",
-  },
-  {
-    id: 3,
-    taskName: "Do your homework",
-    status: "in-progress",
-    responsable: "Raluca",
-  },
-  {
-    id: 4,
-    taskName: "binging",
-    status: "to-do",
-    responsable: "Raluca",
-  },
-];
+const loginButton = document.getElementById("loginSubmit")
+loginButton.addEventListener('click', login)
 
-import { login } from "./Login/Login.js";
+const registerButton = document.getElementById("registerSubmit")
+registerButton.addEventListener('click', register)
 
-const loginButton = document.getElementById("loginSubmit");
-loginButton.addEventListener("click", login);
+const isLoggedIn = localStorage.getItem("isLoggedIn")
+
+if (isLoggedIn) {
+    document.getElementById('login').setAttribute('hidden', 'true')
+    document.getElementById('register').setAttribute('hidden', 'true')
+    document.getElementById('user').removeAttribute('hidden')
+    document.getElementById('greetings').textContent = 'Salut ' + localStorage.getItem('username')
+}
+
+renderTodos()
+
+const logoutButton = document.getElementById("logout")
+logoutButton.addEventListener('click', logout)
+
+
+const addEditSubmit = document.getElementById("addEditSubmit")
+addEditSubmit.addEventListener('click', addToDo)
